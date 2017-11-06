@@ -10,6 +10,10 @@ getCurrentWorksheet = function() {
     return getCurrentViz().getWorkbook().getActiveSheet().getWorksheets()[0];
 };
 
+getCurrentWorkbook = function() {
+  return getCurrentViz().getWorkbook();
+};
+
 errorWrapped = function(context, fn) {
     return function() {
         var args, err, error;
@@ -143,7 +147,7 @@ function getFilter(e) {
                 if (filter.getFieldName() === 'ObjectID|Name') {
                     console.log(filter.getAppliedValues()[0].value);
                     filterArray = filter.getAppliedValues()[0].value.split('|');
-                    getCurrentWorksheet().changeParameterValueAsync('Primary Object ID', filterArray[0]);
+                    getCurrentWorkbook().changeParameterValueAsync('Primary Object ID', filterArray[0]);
                 }
             });
         },
@@ -154,7 +158,7 @@ function getFilter(e) {
 }
 
 function getParam() {
-    getCurrentWorksheet().getParametersAsync().then(
+    getCurrentWorkbook().getParametersAsync().then(
         function(params) {
             criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
             console.log(criteria);
@@ -174,7 +178,7 @@ function getMarks(e) {
             $.each(m, function(i, mark) {
                 var alertOutput = "selectedMarks:\n";
 
-                getCurrentWorksheet().getParametersAsync().then(
+                getCurrentWorkbook().getParametersAsync().then(
                     function(params) {
                         sign = params.get('Default Sign:').getCurrentValue().value; //get default sign
                         console.log(sign);
@@ -191,7 +195,7 @@ function getMarks(e) {
 
                         criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
                         console.log('Updating Criteria: ' + criteria + newMetric);
-                        getCurrentWorksheet().changeParameterValueAsync('Exception Criteria', criteria + newMetric);
+                        getCurrentWorkbook().changeParameterValueAsync('Exception Criteria', criteria + newMetric);
                     },
                     function(err) { //not able to access parameters
                         alert("Whoops");
@@ -205,7 +209,7 @@ function getMarks(e) {
         e.getMarksAsync().then(function(m) {
             console.log('Mark Count ' + m.length);
             if (m.length > 0) {
-                getCurrentWorksheet().changeParameterValueAsync('Exception Criteria', '');
+                getCurrentWorkbook().changeParameterValueAsync('Exception Criteria', '');
             }
         });
     } else if (worksheet.getName() === 'Edit Button') {
@@ -214,7 +218,7 @@ function getMarks(e) {
             console.log('Mark Count ' + m.length);
             if (m.length > 0) {
 
-                getCurrentWorksheet().getParametersAsync().then(
+                activeWorkbook.getParametersAsync().then(
                     function(params) {
                         criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
                         criteriaArray = criteria.substring(0, criteria.length - 1).split(';');
