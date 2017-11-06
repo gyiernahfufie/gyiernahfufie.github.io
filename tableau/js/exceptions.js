@@ -1,164 +1,190 @@
-			var modal = (function(){
-				var 
-				method = {},
-				$overlay,
-				$modal,
-				$content,
-				$close;
+getTableau = function() {
+    return parent.parent.tableau;
+};
 
-				// Center the modal in the viewport
-				method.center = function () {
-					var top, left;
+getCurrentViz = function() {
+    return getTableau().VizManager.getVizs()[0];
+};
 
-					top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
-					left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+getCurrentWorksheet = function() {
+    return getCurrentViz().getWorkbook().getActiveSheet().getWorksheets()[0];
+};
 
-					$modal.css({
-						top:top + $(window).scrollTop(), 
-						left:left + $(window).scrollLeft()
-					});
-				};
+errorWrapped = function(context, fn) {
+    return function() {
+        var args, err, error;
+        args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+        try {
+            return fn.apply(null, args);
+        } catch (error) {
+            err = error;
+            return console.error("Got error during '", context, "' : ", err);
+        }
+    };
+};
 
-				// Open the modal
-				method.open = function (settings) {
-					$content.empty().append(settings.content);
+var modal = (function() {
+    var
+        method = {},
+        $overlay,
+        $modal,
+        $content,
+        $close;
 
-					$modal.css({
-						width: settings.width || 'auto', 
-						height: settings.height || 'auto'
-					});
+    // Center the modal in the viewport
+    method.center = function() {
+        var top, left;
 
-					method.center();
-					$(window).bind('resize.modal', method.center);
-					$modal.show();
-					$overlay.show();
-				};
+        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
 
-				// Close the modal
-				method.close = function () {
-					$modal.hide();
-					$overlay.hide();
-					input = $content.find('.input');
-					$.each(input, function () {  
-						$(this).parent().text($(this).val());
-					});
-					
-					crit = $content.find('.crit');
-					var newinput = ''
-					$.each(crit, function () {  
-						var h = $(this).html();
-						var decode = $('<textarea/>').html(h).text();
-						newinput += decode+';';
-					});
-					console.log('Updating Criteria: ' + newinput);
-					activeWorkbook.changeParameterValueAsync('Exception Criteria', newinput);
-					$content.empty();
-					$(window).unbind('resize.modal');
-				};
+        $modal.css({
+            top: top + $(window).scrollTop(),
+            left: left + $(window).scrollLeft()
+        });
+    };
 
-				// Generate the HTML and add it to the document
-				$overlay = $('<div id="overlay"></div>');
-				$modal = $('<div id="modal"><p style="color:white; font-weight: bold;">Click criteria to edit:</p></div>');
-				$content = $('<div id="content"></div>');
-				$close = $('<a id="close" href="#">close</a>');
+    // Open the modal
+    method.open = function(settings) {
+        $content.empty().append(settings.content);
 
-				$modal.hide();
-				$overlay.hide();
-				$modal.append($content, $close);
+        $modal.css({
+            width: settings.width || 'auto',
+            height: settings.height || 'auto'
+        });
 
-				$(document).ready(function(){
-					$('body').append($overlay, $modal);						
-				});
+        method.center();
+        $(window).bind('resize.modal', method.center);
+        $modal.show();
+        $overlay.show();
+    };
 
-				$close.click(function(e){
-					e.preventDefault();
-					method.close();
-				});
-$content.on('click','.crit', function() {
-            // if the td elements contain any input tag
-            if ($(this).find('input').length){
-                // sets the text content of the tag equal to the value of the input
-                //$(this).text($(this).find('input').val());
-		console.log('unclick');
-            }
-            else {
-                // removes the text, appends an input and sets the value to the text-value
-                var t = $(this).text();
-		w = $(this).width();
-                $(this).html($('<input class="input" />',{'value' : t}).val(t));
-		$(this).find('input').width(w);
-		console.log('click');
-            }
-});
-$content.on('keydown','.input', function(event) {
-  if (event.keyCode == 13) {
-    console.log('Enter was pressed');
-    $(this).parent().text($(this).val());
-  }
-});
-$content.on('click','.del', function() {
-	$(this).parent().remove();
-});
-				return method;
-		}());
+    // Close the modal
+    method.close = function() {
+        $modal.hide();
+        $overlay.hide();
+        input = $content.find('.input');
+        $.each(input, function() {
+            $(this).parent().text($(this).val());
+        });
+
+        crit = $content.find('.crit');
+        var newinput = ''
+        $.each(crit, function() {
+            var h = $(this).html();
+            var decode = $('<textarea/>').html(h).text();
+            newinput += decode + ';';
+        });
+        console.log('Updating Criteria: ' + newinput);
+        activeWorkbook.changeParameterValueAsync('Exception Criteria', newinput);
+        $content.empty();
+        $(window).unbind('resize.modal');
+    };
+
+    // Generate the HTML and add it to the document
+    $overlay = $('<div id="overlay"></div>');
+    $modal = $('<div id="modal"><p style="color:white; font-weight: bold;">Click criteria to edit:</p></div>');
+    $content = $('<div id="content"></div>');
+    $close = $('<a id="close" href="#">close</a>');
+
+    $modal.hide();
+    $overlay.hide();
+    $modal.append($content, $close);
+
+    $(document).ready(function() {
+        $('body').append($overlay, $modal);
+    });
+
+    $close.click(function(e) {
+        e.preventDefault();
+        method.close();
+    });
+    $content.on('click', '.crit', function() {
+        // if the td elements contain any input tag
+        if ($(this).find('input').length) {
+            // sets the text content of the tag equal to the value of the input
+            //$(this).text($(this).find('input').val());
+            console.log('unclick');
+        } else {
+            // removes the text, appends an input and sets the value to the text-value
+            var t = $(this).text();
+            w = $(this).width();
+            $(this).html($('<input class="input" />', {
+                'value': t
+            }).val(t));
+            $(this).find('input').width(w);
+            console.log('click');
+        }
+    });
+    $content.on('keydown', '.input', function(event) {
+        if (event.keyCode == 13) {
+            console.log('Enter was pressed');
+            $(this).parent().text($(this).val());
+        }
+    });
+    $content.on('click', '.del', function() {
+        $(this).parent().remove();
+    });
+    return method;
+}());
 
 
 // THIS FUNCTION IS JQUERY'S WAY OF DOING A WINDOW.ONLOAD
-$(document).ready(function(){
+$(document).ready(function() {
 
     var placeholderDiv = document.getElementById("tableauViz");
     var url = "http://192.168.15.159/views/OpsDataStoreExceptions/ExceptionsDashboard";
     var options = {
 
         toolbarPosition: 'false',
-        onFirstInteractive: function () {
+        onFirstInteractive: function() {
             activeWorkbook = viz.getWorkbook();
             activeSheet = activeWorkbook.getActiveSheet();
 
-	    activeWorkbook.changeParameterValueAsync('Error', 'False');
-		
+            activeWorkbook.changeParameterValueAsync('Error', 'False');
+
 
         }
     };
     viz = new tableauSoftware.Viz(placeholderDiv, url, options);
-    document.querySelectorAll("iframe").forEach(elem => elem.setAttribute('style', 'width:100%; height:1000px; visibility:visible;'));  
+    document.querySelectorAll("iframe").forEach(elem => elem.setAttribute('style', 'width:100%; height:1000px; visibility:visible;'));
 
     viz.addEventListener("marksSelection", getMarks);
-    viz.addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter );
+    viz.addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
 
     $('body').append($overlay, $modal);
-  
+
 });
 
 function getFilter(e) {
     console.log(e.getFieldName());
     worksheet = e.getWorksheet();
     //console.log(e[0].getFilterType());
-    
+
     worksheet.getFiltersAsync().then(
-        function (filters) {
-	    $.each(filters, function (i, filter) {
-		console.log(i + ': ' + filter.getFilterType() + ': ' + filter.getFieldName());
-		if(filter.getFieldName()==='ObjectID|Name') {
-		    console.log(filter.getAppliedValues()[0].value);
-		    filterArray = filter.getAppliedValues()[0].value.split('|');
-		    activeWorkbook.changeParameterValueAsync('Primary Object ID', filterArray[0]);
-		}
-	    });
-	},
-	function (err) {
-	    alert("Whoops");
-	}
+        function(filters) {
+            $.each(filters, function(i, filter) {
+                console.log(i + ': ' + filter.getFilterType() + ': ' + filter.getFieldName());
+                if (filter.getFieldName() === 'ObjectID|Name') {
+                    console.log(filter.getAppliedValues()[0].value);
+                    filterArray = filter.getAppliedValues()[0].value.split('|');
+                    activeWorkbook.changeParameterValueAsync('Primary Object ID', filterArray[0]);
+                }
+            });
+        },
+        function(err) {
+            alert("Whoops");
+        }
     );
 }
 
 function getParam() {
     activeWorkbook.getParametersAsync().then(
-        function (params) {
+        function(params) {
             criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
-	    console.log(criteria);
-	}, 
-        function (err) { //not able to access parameters
+            console.log(criteria);
+        },
+        function(err) { //not able to access parameters
             alert("Whoops");
         }
     );
@@ -167,69 +193,84 @@ function getParam() {
 
 
 function getMarks(e) {
-	worksheet = e.getWorksheet();
-	if (worksheet.getName() === 'Selection Sheet') {
-		e.getMarksAsync().then( function(m) { 
-			$.each(m, function (i, mark) {                   
-          	              var alertOutput = "selectedMarks:\n";
-				
-				activeWorkbook.getParametersAsync().then(
-        				function (params) {
-						sign = params.get('Default Sign:').getCurrentValue().value; //get default sign
-						console.log(sign);
-						 // Each Mark has Pairs
-          	              			$.each(mark.getPairs(), function (j, pair) {
-          	                  			alertOutput = alertOutput + "  " + (pair.fieldName) + ": " + pair.value;
-          	              			});
-           	             			alertOutput = alertOutput + "\n";
-           	             			console.log(alertOutput);
+    worksheet = e.getWorksheet();
+    if (worksheet.getName() === 'Selection Sheet') {
+        e.getMarksAsync().then(function(m) {
+            $.each(m, function(i, mark) {
+                var alertOutput = "selectedMarks:\n";
 
-           	             			metricName = mark.getPairs().get("METRIC_NAME").value;
-            	             			mean = Math.round(mark.getPairs().get("AVG(Mean)").value*1000)/1000;
-			     			newMetric = '['+metricName+']'+sign+mean+';';
-			
-						criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
-						console.log('Updating Criteria: ' + criteria + newMetric);
-						activeWorkbook.changeParameterValueAsync('Exception Criteria', criteria + newMetric);
-					}, 
-        				function (err) { //not able to access parameters
-            					alert("Whoops");
-        				}
-    				);
-                        
-               		});
-		
-		});
-	} else if (worksheet.getName() === 'Clear Button') {
-		e.getMarksAsync().then( function(m) { 
-			console.log('Mark Count ' + m.length);
-			if (m.length>0) {
-				activeWorkbook.changeParameterValueAsync('Exception Criteria', '');
-			}
-		});
-	} else if (worksheet.getName() === 'Edit Button') {
-		//activeWorkbook.changeParameterValueAsync('Exception Criteria', 'edit button');
-		e.getMarksAsync().then( function(m) { 
-			console.log('Mark Count ' + m.length);
-			if (m.length>0) {
-				
-				activeWorkbook.getParametersAsync().then(
-        				function (params) {
-            					criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
-						criteriaArray = criteria.substring(0,criteria.length-1).split(';');
+                activeWorkbook.getParametersAsync().then(
+                    function(params) {
+                        sign = params.get('Default Sign:').getCurrentValue().value; //get default sign
+                        console.log(sign);
+                        // Each Mark has Pairs
+                        $.each(mark.getPairs(), function(j, pair) {
+                            alertOutput = alertOutput + "  " + (pair.fieldName) + ": " + pair.value;
+                        });
+                        alertOutput = alertOutput + "\n";
+                        console.log(alertOutput);
 
-						var list = '<table id="myTable"><tr><td class="crit">' + criteriaArray.join('<td class="del">X</td></td></tr><tr><td class="crit">') + '<td class="del">X</td></td></tr></table>';
-						
-						modal.open({content: list});
-						
-					}, 
-        				function (err) { //not able to access parameters
-            					alert("Whoops");
-        				}
-    				);
-			}
-		});
-		
-	}
+                        metricName = mark.getPairs().get("METRIC_NAME").value;
+                        mean = Math.round(mark.getPairs().get("AVG(Mean)").value * 1000) / 1000;
+                        newMetric = '[' + metricName + ']' + sign + mean + ';';
+
+                        criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
+                        console.log('Updating Criteria: ' + criteria + newMetric);
+                        activeWorkbook.changeParameterValueAsync('Exception Criteria', criteria + newMetric);
+                    },
+                    function(err) { //not able to access parameters
+                        alert("Whoops");
+                    }
+                );
+
+            });
+
+        });
+    } else if (worksheet.getName() === 'Clear Button') {
+        e.getMarksAsync().then(function(m) {
+            console.log('Mark Count ' + m.length);
+            if (m.length > 0) {
+                activeWorkbook.changeParameterValueAsync('Exception Criteria', '');
+            }
+        });
+    } else if (worksheet.getName() === 'Edit Button') {
+        //activeWorkbook.changeParameterValueAsync('Exception Criteria', 'edit button');
+        e.getMarksAsync().then(function(m) {
+            console.log('Mark Count ' + m.length);
+            if (m.length > 0) {
+
+                activeWorkbook.getParametersAsync().then(
+                    function(params) {
+                        criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
+                        criteriaArray = criteria.substring(0, criteria.length - 1).split(';');
+
+                        var list = '<table id="myTable"><tr><td class="crit">' + criteriaArray.join('<td class="del">X</td></td></tr><tr><td class="crit">') + '<td class="del">X</td></td></tr></table>';
+
+                        modal.open({
+                            content: list
+                        });
+
+                    },
+                    function(err) { //not able to access parameters
+                        alert("Whoops");
+                    }
+                );
+            }
+        });
+
+    }
 }
+initApp = function() {
+    var tableau;
+    tableau = getTableau();
 
+    getCurrentViz().addEventListener("marksSelection", getMarks);
+    getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
+
+    $('body').append($overlay, $modal);
+    //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
+};
+
+this.appApi = {
+    init: initApp
+};
