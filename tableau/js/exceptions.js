@@ -27,113 +27,6 @@ errorWrapped = function(context, fn) {
     };
 };
 
-var modal = (function() {
-    var
-        method = {},
-        $overlay,
-        $modal,
-        $content,
-        $close;
-
-    // Center the modal in the viewport
-    method.center = function() {
-        var top, left;
-
-        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
-        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
-
-        $modal.css({
-            top: top + $(window).scrollTop(),
-            left: left + $(window).scrollLeft()
-        });
-    };
-
-    // Open the modal
-    method.open = function(settings) {
-        $content.empty().append(settings.content);
-
-        $modal.css({
-            width: settings.width || 'auto',
-            height: settings.height || 'auto'
-        });
-
-        method.center();
-        $(window).bind('resize.modal', method.center);
-        $modal.show();
-        $overlay.show();
-    };
-
-    // Close the modal
-    method.close = function() {
-        $modal.hide();
-        $overlay.hide();
-        input = $content.find('.input');
-        $.each(input, function() {
-            $(this).parent().text($(this).val());
-        });
-
-        crit = $content.find('.crit');
-        var newinput = ''
-        $.each(crit, function() {
-            var h = $(this).html();
-            var decode = $('<textarea/>').html(h).text();
-            newinput += decode + ';';
-        });
-        console.log('Updating Criteria: ' + newinput);
-        activeWorkbook.changeParameterValueAsync('Exception Criteria', newinput);
-        $content.empty();
-        $(window).unbind('resize.modal');
-    };
-
-    // Generate the HTML and add it to the document
-    $overlay = $('<div id="overlay"></div>');
-    $modal = $('<div id="modal"><p style="color:white; font-weight: bold;">Click criteria to edit:</p></div>');
-    $content = $('<div id="content"></div>');
-    $close = $('<a id="close" href="#">close</a>');
-
-    $modal.hide();
-    $overlay.hide();
-    $modal.append($content, $close);
-
-    $(document).ready(function() {
-        $('body').append($overlay, $modal);
-    });
-
-    $close.click(function(e) {
-        e.preventDefault();
-        method.close();
-    });
-    $content.on('click', '.crit', function() {
-        // if the td elements contain any input tag
-        if ($(this).find('input').length) {
-            // sets the text content of the tag equal to the value of the input
-            //$(this).text($(this).find('input').val());
-            console.log('unclick');
-        } else {
-            // removes the text, appends an input and sets the value to the text-value
-            var t = $(this).text();
-            w = $(this).width();
-            $(this).html($('<input class="input" />', {
-                'value': t
-            }).val(t));
-            $(this).find('input').width(w);
-            console.log('click');
-        }
-    });
-    $content.on('keydown', '.input', function(event) {
-        if (event.keyCode == 13) {
-            console.log('Enter was pressed');
-            $(this).parent().text($(this).val());
-        }
-    });
-    $content.on('click', '.del', function() {
-        $(this).parent().remove();
-    });
-    return method;
-}());
-
-
-
 
 function getFilter(e) {
     console.log(e.getFieldName());
@@ -243,7 +136,113 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.0')
+    console.log('version 2.0');
+
+var modal = (function() {
+    var
+        method = {},
+        $overlay,
+        $modal,
+        $content,
+        $close;
+
+    // Center the modal in the viewport
+    method.center = function() {
+        var top, left;
+
+        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
+        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+
+        $modal.css({
+            top: top + $(window).scrollTop(),
+            left: left + $(window).scrollLeft()
+        });
+    };
+
+    // Open the modal
+    method.open = function(settings) {
+        $content.empty().append(settings.content);
+
+        $modal.css({
+            width: settings.width || 'auto',
+            height: settings.height || 'auto'
+        });
+
+        method.center();
+        $(window).bind('resize.modal', method.center);
+        $modal.show();
+        $overlay.show();
+    };
+
+    // Close the modal
+    method.close = function() {
+        $modal.hide();
+        $overlay.hide();
+        input = $content.find('.input');
+        $.each(input, function() {
+            $(this).parent().text($(this).val());
+        });
+
+        crit = $content.find('.crit');
+        var newinput = ''
+        $.each(crit, function() {
+            var h = $(this).html();
+            var decode = $('<textarea/>').html(h).text();
+            newinput += decode + ';';
+        });
+        console.log('Updating Criteria: ' + newinput);
+        activeWorkbook.changeParameterValueAsync('Exception Criteria', newinput);
+        $content.empty();
+        $(window).unbind('resize.modal');
+    };
+
+    // Generate the HTML and add it to the document
+    $overlay = $('<div id="overlay"></div>');
+    $modal = $('<div id="modal"><p style="color:white; font-weight: bold;">Click criteria to edit:</p></div>');
+    $content = $('<div id="content"></div>');
+    $close = $('<a id="close" href="#">close</a>');
+
+    $modal.hide();
+    $overlay.hide();
+    $modal.append($content, $close);
+
+    $(document).ready(function() {
+        $('body').append($overlay, $modal);
+    });
+
+    $close.click(function(e) {
+        e.preventDefault();
+        method.close();
+    });
+    $content.on('click', '.crit', function() {
+        // if the td elements contain any input tag
+        if ($(this).find('input').length) {
+            // sets the text content of the tag equal to the value of the input
+            //$(this).text($(this).find('input').val());
+            console.log('unclick');
+        } else {
+            // removes the text, appends an input and sets the value to the text-value
+            var t = $(this).text();
+            w = $(this).width();
+            $(this).html($('<input class="input" />', {
+                'value': t
+            }).val(t));
+            $(this).find('input').width(w);
+            console.log('click');
+        }
+    });
+    $content.on('keydown', '.input', function(event) {
+        if (event.keyCode == 13) {
+            console.log('Enter was pressed');
+            $(this).parent().text($(this).val());
+        }
+    });
+    $content.on('click', '.del', function() {
+        $(this).parent().remove();
+    });
+    return method;
+}());
+
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
