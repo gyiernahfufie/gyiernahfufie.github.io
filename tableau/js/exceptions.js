@@ -51,7 +51,7 @@ var modal = (function() {
             newinput += decode + ';';
         });
         console.log('Updating Criteria: ' + newinput);
-        activeWorkbook.changeParameterValueAsync('Exception Criteria', newinput);
+        getCurrentWorkbook().changeParameterValueAsync('Exception Criteria', newinput);
         $content.empty();
         $(window).unbind('resize.modal');
     };
@@ -241,7 +241,7 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.1');
+    console.log('version 2.2');
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
