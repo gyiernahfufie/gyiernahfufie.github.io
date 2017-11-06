@@ -67,8 +67,8 @@ var modal = (function() {
     $modal.append($content, $close);
 
     $(document).ready(function() {
-        //$('body').append($overlay, $modal);
-        parent.parent.document.append($overlay, $modal);
+        $('body').append($overlay, $modal);
+        //parent.parent.document.append($overlay, $modal);
     });
 
     $close.click(function(e) {
@@ -247,8 +247,8 @@ initApp = function() {
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
 
-    //$('body').append($overlay, $modal);
-    parent.parent.document.append($overlay, $modal);
+    $('body').append($overlay, $modal);
+    //parent.parent.document.append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };
 
