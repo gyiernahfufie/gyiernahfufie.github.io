@@ -129,32 +129,7 @@ var modal = (function() {
 }());
 
 
-// THIS FUNCTION IS JQUERY'S WAY OF DOING A WINDOW.ONLOAD
-$(document).ready(function() {
 
-    var placeholderDiv = document.getElementById("tableauViz");
-    var url = "http://192.168.15.159/views/OpsDataStoreExceptions/ExceptionsDashboard";
-    var options = {
-
-        toolbarPosition: 'false',
-        onFirstInteractive: function() {
-            activeWorkbook = viz.getWorkbook();
-            activeSheet = activeWorkbook.getActiveSheet();
-
-            activeWorkbook.changeParameterValueAsync('Error', 'False');
-
-
-        }
-    };
-    viz = new tableauSoftware.Viz(placeholderDiv, url, options);
-    document.querySelectorAll("iframe").forEach(elem => elem.setAttribute('style', 'width:100%; height:1000px; visibility:visible;'));
-
-    viz.addEventListener("marksSelection", getMarks);
-    viz.addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
-
-    $('body').append($overlay, $modal);
-
-});
 
 function getFilter(e) {
     console.log(e.getFieldName());
@@ -168,7 +143,7 @@ function getFilter(e) {
                 if (filter.getFieldName() === 'ObjectID|Name') {
                     console.log(filter.getAppliedValues()[0].value);
                     filterArray = filter.getAppliedValues()[0].value.split('|');
-                    activeWorkbook.changeParameterValueAsync('Primary Object ID', filterArray[0]);
+                    getCurrentWorksheet().changeParameterValueAsync('Primary Object ID', filterArray[0]);
                 }
             });
         },
@@ -179,7 +154,7 @@ function getFilter(e) {
 }
 
 function getParam() {
-    activeWorkbook.getParametersAsync().then(
+    getCurrentWorksheet().getParametersAsync().then(
         function(params) {
             criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
             console.log(criteria);
@@ -199,7 +174,7 @@ function getMarks(e) {
             $.each(m, function(i, mark) {
                 var alertOutput = "selectedMarks:\n";
 
-                activeWorkbook.getParametersAsync().then(
+                getCurrentWorksheet().getParametersAsync().then(
                     function(params) {
                         sign = params.get('Default Sign:').getCurrentValue().value; //get default sign
                         console.log(sign);
@@ -216,7 +191,7 @@ function getMarks(e) {
 
                         criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
                         console.log('Updating Criteria: ' + criteria + newMetric);
-                        activeWorkbook.changeParameterValueAsync('Exception Criteria', criteria + newMetric);
+                        getCurrentWorksheet().changeParameterValueAsync('Exception Criteria', criteria + newMetric);
                     },
                     function(err) { //not able to access parameters
                         alert("Whoops");
@@ -230,7 +205,7 @@ function getMarks(e) {
         e.getMarksAsync().then(function(m) {
             console.log('Mark Count ' + m.length);
             if (m.length > 0) {
-                activeWorkbook.changeParameterValueAsync('Exception Criteria', '');
+                getCurrentWorksheet().changeParameterValueAsync('Exception Criteria', '');
             }
         });
     } else if (worksheet.getName() === 'Edit Button') {
@@ -239,7 +214,7 @@ function getMarks(e) {
             console.log('Mark Count ' + m.length);
             if (m.length > 0) {
 
-                activeWorkbook.getParametersAsync().then(
+                getCurrentWorksheet().getParametersAsync().then(
                     function(params) {
                         criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
                         criteriaArray = criteria.substring(0, criteria.length - 1).split(';');
@@ -267,7 +242,7 @@ initApp = function() {
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
 
-    $('body').parent.parent.parent.append($overlay, $modal);
+    $('body').parent().parent().append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };
 
