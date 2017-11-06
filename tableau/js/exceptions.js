@@ -173,6 +173,7 @@ function getParam() {
 
 function getMarks(e) {
     worksheet = e.getWorksheet();
+    console.log(worksheet.getName());
     if (worksheet.getName() === 'Selection Sheet') {
         e.getMarksAsync().then(function(m) {
             $.each(m, function(i, mark) {
@@ -218,7 +219,7 @@ function getMarks(e) {
             console.log('Mark Count ' + m.length);
             if (m.length > 0) {
 
-                activeWorkbook.getParametersAsync().then(
+                getCurrentWorkbook().getParametersAsync().then(
                     function(params) {
                         criteria = params.get('Exception Criteria').getCurrentValue().value; //get exception criteria
                         criteriaArray = criteria.substring(0, criteria.length - 1).split(';');
@@ -242,6 +243,7 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
+    console.log('version 2.0')
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
