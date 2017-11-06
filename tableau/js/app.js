@@ -56,8 +56,8 @@ updateChartWithData = function(datasets) {
       type: "bubble",
       data: {
         datasets: datasets,
-        xLabels: ["Sales"],
-        yLabels: ["Profit"]
+        xLabels: ["Profit"],
+        yLabels: ["Sales"]
       },
       options: {
         animation: {
@@ -70,7 +70,7 @@ updateChartWithData = function(datasets) {
             {
               scaleLabel: {
                 display: true,
-                labelString: "Profit"
+                labelString: "Sales"
               }
             }
           ],
@@ -78,7 +78,7 @@ updateChartWithData = function(datasets) {
             {
               scaleLabel: {
                 display: true,
-                labelString: "Sales"
+                labelString: "Profit"
               }
             }
           ]
