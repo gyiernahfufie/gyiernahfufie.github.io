@@ -68,8 +68,8 @@ var modal = (function() {
     $modal.append($content, $close);
 
     $(document).ready(function() {
-        //$('body').append($overlay, $modal);
-        parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
+        $('body').append($overlay, $modal);
+        //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
         console.log('test ready 1');
     });
 
@@ -250,9 +250,9 @@ initApp = function() {
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
     console.log('test ready 2');
     console.log(parent.parent.parent.document.getElementsByClassName('tb-fill')[0])
-    parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
+    //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     
-    //$('body').append($overlay, $modal);
+    $('body').append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };		
 
