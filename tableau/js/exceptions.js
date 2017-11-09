@@ -22,7 +22,7 @@ var modal = (function() {
     // Open the modal
     method.open = function(settings) {
         $content.empty().append(settings.content);
-
+        console.log('modal open');
         $modal.css({
             width: settings.width || 'auto',
             height: settings.height || 'auto'
@@ -229,7 +229,7 @@ function getMarks(e) {
                         modal.open({
                             content: list
                         });
-
+                        console.log('modal open clicked');
                     },
                     function(err) { //not able to access parameters
                         alert("Whoops");
@@ -243,11 +243,12 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.10');
+    console.log('version 2.11');
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
     console.log('test ready 2');
+    console.log(parent.parent.parent.document.getElementsByClassName('tb-fill')[0])
     parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     
     //$('body').append($overlay, $modal);
