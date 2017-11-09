@@ -24,8 +24,9 @@ var modal = (function() {
         $content.empty().append(settings.content);
         console.log($modal);
         $modal.css({
-            width: settings.width || 'auto',
-            height: settings.height || 'auto'
+            width:  '1000px', //settings.width || 'auto',
+            height: '1000px', //settings.height || 'auto',
+            position: 'absolute'
         });
 
         method.center();
