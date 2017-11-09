@@ -22,7 +22,7 @@ var modal = (function() {
     // Open the modal
     method.open = function(settings) {
         $content.empty().append(settings.content);
-        console.log('modal open');
+        console.log($modal);
         $modal.css({
             width: settings.width || 'auto',
             height: settings.height || 'auto'
