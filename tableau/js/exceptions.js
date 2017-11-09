@@ -68,6 +68,7 @@ var modal = (function() {
 
     $(document).ready(function() {
         //$('body').append($overlay, $modal);
+        console.log('test ready 1');
         parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     });
 
@@ -225,7 +226,7 @@ function getMarks(e) {
 
                         var list = '<table id="myTable"><tr><td class="crit">' + criteriaArray.join('<td class="del">X</td></td></tr><tr><td class="crit">') + '<td class="del">X</td></td></tr></table>';
 
-                        parent.parent.modal.open({
+                        modal.open({
                             content: list
                         });
 
@@ -242,12 +243,13 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.8');
+    console.log('version 2.9');
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
 
     parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
+    console.log('test ready 2');
     //$('body').append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };
