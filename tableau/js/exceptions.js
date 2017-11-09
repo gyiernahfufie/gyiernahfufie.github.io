@@ -225,11 +225,11 @@ function getMarks(e) {
                         criteriaArray = criteria.substring(0, criteria.length - 1).split(';');
 
                         var list = '<table id="myTable"><tr><td class="crit">' + criteriaArray.join('<td class="del">X</td></td></tr><tr><td class="crit">') + '<td class="del">X</td></td></tr></table>';
-
+                        console.log('modal open clicked');
                         modal.open({
                             content: list
                         });
-                        console.log('modal open clicked');
+                        
                     },
                     function(err) { //not able to access parameters
                         alert("Whoops");
@@ -243,7 +243,7 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.11');
+    console.log('version 2.12');
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
@@ -253,7 +253,7 @@ initApp = function() {
     
     //$('body').append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
-};
+};		
 
 this.appApi = {
     init: initApp
