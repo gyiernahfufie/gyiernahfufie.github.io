@@ -68,7 +68,8 @@ var modal = (function() {
     $modal.append($content, $close);
 
     $(document).ready(function() {
-        $('body').append($overlay, $modal);
+        //$('body').append($overlay, $modal);
+        $('body').parent().parent().append($overlay, $modal);
         //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
         console.log('test ready 1');
     });
@@ -244,7 +245,7 @@ function getMarks(e) {
 initApp = function() {
     var tableau;
     tableau = getTableau();
-    console.log('version 2.12');
+    console.log('version 2.13');
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
@@ -252,7 +253,8 @@ initApp = function() {
     console.log(parent.parent.parent.document.getElementsByClassName('tb-fill')[0])
     //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     
-    $('body').append($overlay, $modal);
+    //$('body').append($overlay, $modal);
+    $('body').parent().parent().append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };		
 
