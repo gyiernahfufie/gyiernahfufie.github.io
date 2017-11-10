@@ -24,6 +24,7 @@ var modal = (function() {
         $content.empty().append(settings.content);
         console.log($modal);
         console.log(document);
+
         console.log(parent.parent.document.getElementsByClassName('tb-fill')[0]);
 
         $modal.css({
@@ -36,6 +37,7 @@ var modal = (function() {
         $(window).bind('resize.modal', method.center);
         $modal.show();
         $overlay.show();
+        console.log(document.getElementById('modal'));
     };
 
     // Close the modal
