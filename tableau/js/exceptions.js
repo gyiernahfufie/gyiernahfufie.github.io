@@ -23,7 +23,7 @@ var modal = (function() {
     method.open = function(settings) {
         $content.empty().append(settings.content);
         console.log($modal);
-        //console.log(document.getElementByID('modal'));
+        console.log(document);
         console.log(parent.parent.document.getElementsByClassName('tb-fill')[0]);
 
         $modal.css({
