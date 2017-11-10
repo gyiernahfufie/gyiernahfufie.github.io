@@ -69,7 +69,7 @@ var modal = (function() {
 
     $(document).ready(function() {
         //$('body').append($overlay, $modal);
-        $('body').parent().parent().append($overlay, $modal);
+        $('body').append($overlay, $modal);
         //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
         console.log('test ready 1');
     });
@@ -254,7 +254,7 @@ initApp = function() {
     //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     
     //$('body').append($overlay, $modal);
-    $('body').parent().parent().append($overlay, $modal);
+    $('body').append($overlay, $modal);
     //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
 };		
 
