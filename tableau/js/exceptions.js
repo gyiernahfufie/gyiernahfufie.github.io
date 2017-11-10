@@ -21,7 +21,7 @@ modal.center = function(){
     left = Math.max(width - m.offsetWidth, 0) / 2;
     m.style.top = top;
     m.style.left = left;
-
+    console.log(top,left,heigh,width,m.offsetHeight,m.offsetWidth);
 };
 
 modal.open = function(settings) {
