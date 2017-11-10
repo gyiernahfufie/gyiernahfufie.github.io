@@ -30,7 +30,7 @@ modal.open = function(settings) {
     var c = parent.parent.document.getElementById('content');
     var a = parent.parent.document.getElementById('close');
 
-    a.setAttribute("onclick","modal.close()");
+    a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].modal.close()");
 
     c.innerHTML = settings.content;
     c.setAttribute("style","border-radius:8px; background:#fff; padding:20px;");
@@ -49,12 +49,12 @@ modal.open = function(settings) {
 
     var crit = c.getElementsByClassName("crit");
     for(var i=0;i<crit.length;i++){
-        crit[i].setAttribute("onclick","critClick(this)");
+        crit[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].critClick(this)");
     }
 
     var del = c.getElementsByClassName("del");
     for(var i=0;i<del.length;i++){
-        del[i].setAttribute("onclick","delClick(this)");
+        del[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].delClick(this)");
     }
 
     modal.center();
