@@ -13,7 +13,7 @@ modal.center = function(){
 
     var height = parent.parent.window.innerHeight
         || parent.parent.document.documentElement.clientHeight
-        || parent.parent.document.body.clientHeight;
+        || parent.parent.document.body.clientHeight;    
 
     m.setAttribute("style","position: absolute; background:url(tint20.png) 0 0 repeat; background:rgba(0,0,0,0.2); border-radius:14px; padding:8px;");
 
@@ -287,7 +287,7 @@ initApp = function() {
     a = document.createElement('a');
     a.innerText = "x";
     a.id = 'close';
-    a.href = '#';
+    a.href = '';
     m.appendChild(a);
 
     o.style.display = 'none';
