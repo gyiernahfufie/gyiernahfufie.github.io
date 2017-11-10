@@ -23,6 +23,9 @@ var modal = (function() {
     method.open = function(settings) {
         $content.empty().append(settings.content);
         console.log($modal);
+        console.log(document.getElementByID('modal'));
+        console.log(parent.parent.document.getElementsByClassName('tb-fill'));
+
         $modal.css({
             width:  settings.width || 'auto',
             height: settings.height || 'auto',
