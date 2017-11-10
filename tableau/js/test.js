@@ -108,7 +108,7 @@ setStyle = function(){
 		}
 		#close {
 		  position:absolute;
-		  background:url(close.png) 0 0 no-repeat;
+		  background:url(https://ugamarkj.github.io/tableau/close.png) 0 0 no-repeat;
 		  width:24px;
 		  max-width:100%;
 		  height:27px;
@@ -152,6 +152,7 @@ initApp = function() {
 	o.id = 'overlay';
 	
 	a = document.createElement('a');
+	a.innerText = "x";
 	a.id = 'close';
 	a.href = '#';
 	//a.innerHTML = '<img src="close.png" height="24px" width="24px"/>';

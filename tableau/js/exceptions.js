@@ -1,121 +1,134 @@
-var modal = (function() {
-    var
-        method = {},
-        $overlay,
-        $modal,
-        $content,
-        $close;
+const modal = new Object();
 
-    // Center the modal in the viewport
-    method.center = function() {
-        var top, left;
+modal.center = function(){
+    var top, left;
+    var body = document.body,
+        html = document.documentElement;
 
-        top = Math.max($(window).height() - $modal.outerHeight(), 0) / 2;
-        left = Math.max($(window).width() - $modal.outerWidth(), 0) / 2;
+    var m = document.getElementById('modal');
 
-        $modal.css({
-            top: top + $(window).scrollTop(),
-            left: left + $(window).scrollLeft()
-            
-        });
+    var width = window.innerWidth
+        || document.documentElement.clientWidth
+        || document.body.clientWidth;
+
+    var height = window.innerHeight
+        || document.documentElement.clientHeight
+        || document.body.clientHeight;
+
+ 
+    m.setAttribute("style","position: absolute; background:url(tint20.png) 0 0 repeat; background:rgba(0,0,0,0.2); border-radius:14px; padding:8px;");
+    top = Math.max(height - m.offsetHeight, 0) / 2;
+    left = Math.max(width - m.offsetWidth, 0) / 2;
+    m.style.top = top;
+    m.style.left = left;
+
+};
+
+modal.open = function(settings) {
+    var m = document.getElementById('modal');
+    var o = document.getElementById('overlay');
+    var c = document.getElementById('content');
+    var a = document.getElementById('close');
+
+    a.setAttribute("onclick","modal.close()");
+
+    c.innerHTML = settings.content;
+    c.setAttribute("style","border-radius:8px; background:#fff; padding:20px;");
+    
+    o.setAttribute("style","position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; opacity: 0.5; filter: alpha(opacity=50);");
+
+    var r = c.getElementsByTagName("tr");
+    for(var i=0;i<r.length;i++){
+        r[i].setAttribute("style","width: auto; background: #d1e0e0; color: black; list-style-type: none; border-style: solid; border-color: #fff; border-spacing: 5px 5px; padding:22px; height: 30px;");
+    }
+
+    var d = c.getElementsByTagName("td");
+    for(var i=0;i<d.length;i++){
+        d[i].setAttribute("style","padding:5px;");
+    }
+
+    var crit = c.getElementsByClassName("crit");
+    for(var i=0;i<crit.length;i++){
+        crit[i].setAttribute("onclick","critClick(this)");
+    }
+
+    var del = c.getElementsByClassName("del");
+    for(var i=0;i<del.length;i++){
+        del[i].setAttribute("onclick","delClick(this)");
+    }
+
+    modal.center();
+    m.style.display = 'block';
+};
+
+modal.close = function() {
+    console.log('closed!')
+    var m = document.getElementById('modal');
+    var o = document.getElementById('overlay');
+
+    o.style.display = 'none';
+    m.style.display = 'none';
+};
+
+critClick = function(item) {
+    if (item.innerText != '') {
+        txt = item.innerText;
+        item.innerText = '';
+        item.innerHTML = '<input onkeypress="inputKey(event,this)" size="60" value="' + txt + '"></input>';
     };
+};
 
-    // Open the modal
-    method.open = function(settings) {
-        $content.empty().append(settings.content);
-        console.log($modal);
-        console.log(document);
+delClick = function(item) {
+    r = item.parentNode;
+    r.parentNode.removeChild(r);
+}
 
-        console.log(parent.parent.document.getElementsByClassName('tb-fill')[0]);
+inputKey = function(k,item) {
+    if(k.keyCode === 13) {
+        console.log('enter!');
+        txt = item.value;
+        r = item.parentNode;
+        r.removeChild(item);
+        r.innerText = txt;
 
-        $modal.css({
-            width:  settings.width || 'auto',
-            height: settings.height || 'auto',
-            position: 'absolute',
-            background:'url(tint20.png) 0 0 repeat',
-            background:'rgba(0,0,0,0.2)',
-            border-radius:'14px',
-            padding:'8px'
-        });
-
-        method.center();
-        $(window).bind('resize.modal', method.center);
-        $modal.show();
-        $overlay.show();
-        console.log(document.getElementById('modal'));
     };
+};
 
-    // Close the modal
-    method.close = function() {
-        $modal.hide();
-        $overlay.hide();
-        input = $content.find('.input');
-        $.each(input, function() {
-            $(this).parent().text($(this).val());
-        });
-
-        crit = $content.find('.crit');
-        var newinput = ''
-        $.each(crit, function() {
-            var h = $(this).html();
-            var decode = $('<textarea/>').html(h).text();
-            newinput += decode + ';';
-        });
-        console.log('Updating Criteria: ' + newinput);
-        getCurrentWorkbook().changeParameterValueAsync('Exception Criteria', newinput);
-        $content.empty();
-        $(window).unbind('resize.modal');
-    };
-
-    // Generate the HTML and add it to the document
-    $overlay = $('<div id="overlay"></div>');
-    $modal = $('<div id="modal"><p style="color:white; font-weight: bold;">Click criteria to edit:</p></div>');
-    $content = $('<div id="content"></div>');
-    $close = $('<a id="close" href="#">close</a>');
-
-    $modal.hide();
-    $overlay.hide();
-    $modal.append($content, $close);
-
-    $(document).ready(function() {
-        //$('body').append($overlay, $modal);
-        $('body').append($overlay, $modal);
-        //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
-        console.log('test ready 1');
-    });
-
-    $close.click(function(e) {
-        e.preventDefault();
-        method.close();
-    });
-    $content.on('click', '.crit', function() {
-        // if the td elements contain any input tag
-        if ($(this).find('input').length) {
-            // sets the text content of the tag equal to the value of the input
-            //$(this).text($(this).find('input').val());
-            console.log('unclick');
-        } else {
-            // removes the text, appends an input and sets the value to the text-value
-            var t = $(this).text();
-            w = $(this).width();
-            $(this).html($('<input class="input" />', {
-                'value': t
-            }).val(t));
-            $(this).find('input').width(w);
-            console.log('click');
+setStyle = function(){
+    var css = `
+        .del {
+          cursor: pointer;
+          background: #d1e0e0;
+          color: black;
         }
-    });
-    $content.on('keydown', '.input', function(event) {
-        if (event.keyCode == 13) {
-            console.log('Enter was pressed');
-            $(this).parent().text($(this).val());
+        .del:hover {
+          cursor: pointer;
+          background: red;
+          color: white;
         }
-    });
-    $content.on('click', '.del', function() {
-        $(this).parent().remove();
-    });
-    return method;
-}());
+        #close {
+          position:absolute;
+          background:url(https://ugamarkj.github.io/tableau/close.png) 0 0 no-repeat;
+          width:24px;
+          max-width:100%;
+          height:27px;
+          display:block;
+          text-indent:-9999px;
+          top:-7px;
+          right:-7px;
+        }
+        `;
+
+    var style = document.createElement('style');
+
+    if (style.styleSheet) {
+        style.styleSheet.cssText = css;
+    } else {
+        style.appendChild(document.createTextNode(css));
+    }
+    document.getElementsByTagName('head')[0].appendChild(style);
+
+};
 
 getTableau = function() {
     return parent.parent.tableau;
@@ -241,7 +254,7 @@ function getMarks(e) {
                         modal.open({
                             content: list
                         });
-                        
+
                     },
                     function(err) { //not able to access parameters
                         alert("Whoops");
@@ -259,13 +272,28 @@ initApp = function() {
 
     getCurrentViz().addEventListener("marksSelection", getMarks);
     getCurrentViz().addEventListener(tableau.TableauEventName.FILTER_CHANGE, getFilter);
-    console.log('test ready 2');
-    console.log(parent.parent.parent.document.getElementsByClassName('tb-fill')[0])
-    //parent.parent.parent.document.getElementsByClassName('tb-fill')[0].append($overlay, $modal);
     
-    //$('body').append($overlay, $modal);
-    $('body').append($overlay, $modal);
-    //return getCurrentViz().addEventListener(tableau.TableauEventName.MARKS_SELECTION, updateChart);
+    setStyle();
+
+    m = document.createElement('div');
+    m.id = 'modal';
+    m.innerHTML = '<p style="color:white; font-weight: bold; font-family: Helvetica, sans-serif;">Click criteria to edit:</p></div><div style="white-space: nowrap;" id="content"></div>'
+    
+    o = document.createElement('div');
+    o.id = 'overlay';
+    
+    a = document.createElement('a');
+    a.innerText = "x";
+    a.id = 'close';
+    a.href = '#';
+    m.appendChild(a);
+
+    o.style.display = 'none';
+    m.style.display = 'none';
+
+    parent.parent.document.body.appendChild(o);
+    parent.parent.document.body.appendChild(m);
+    
 };		
 
 this.appApi = {
