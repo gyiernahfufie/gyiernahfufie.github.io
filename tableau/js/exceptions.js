@@ -30,7 +30,11 @@ modal.open = function(settings) {
     var c = parent.parent.document.getElementById('content');
     var a = parent.parent.document.getElementById('close');
 
+<<<<<<< HEAD
     a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.modal.close()");
+=======
+    a.setAttribute("onclick","modal.close()");
+>>>>>>> parent of d2749bf... fix for js location
 
     c.innerHTML = settings.content;
     c.setAttribute("style","border-radius:8px; background:#fff; padding:20px;");
@@ -49,12 +53,20 @@ modal.open = function(settings) {
 
     var crit = c.getElementsByClassName("crit");
     for(var i=0;i<crit.length;i++){
+<<<<<<< HEAD
         crit[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.critClick(this)");
+=======
+        crit[i].setAttribute("onclick","critClick(this)");
+>>>>>>> parent of d2749bf... fix for js location
     }
 
     var del = c.getElementsByClassName("del");
     for(var i=0;i<del.length;i++){
+<<<<<<< HEAD
         del[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.delClick(this)");
+=======
+        del[i].setAttribute("onclick","delClick(this)");
+>>>>>>> parent of d2749bf... fix for js location
     }
 
     modal.center();
