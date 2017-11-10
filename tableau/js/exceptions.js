@@ -16,6 +16,7 @@ var modal = (function() {
         $modal.css({
             top: top + $(window).scrollTop(),
             left: left + $(window).scrollLeft()
+            
         });
     };
 
@@ -30,7 +31,11 @@ var modal = (function() {
         $modal.css({
             width:  settings.width || 'auto',
             height: settings.height || 'auto',
-            position: 'absolute'
+            position: 'absolute',
+            background:'url(tint20.png) 0 0 repeat',
+            background:'rgba(0,0,0,0.2)',
+            border-radius:'14px',
+            padding:'8px'
         });
 
         method.center();
