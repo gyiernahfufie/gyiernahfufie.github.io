@@ -74,7 +74,7 @@ critClick = function(item) {
     if (item.innerText != '') {
         txt = item.innerText;
         item.innerText = '';
-        item.innerHTML = '<input onkeypress="document.getElementsByTagName(''iframe'')[0].contentDocument.getElementsByTagName(''iframe'')[1].contentWindow.inputKey(event,this)" size="60" value="' + txt + '"></input>';
+        item.innerHTML = '<input onkeypress="document.getElementsByTagName(&apos;iframe&apos;)[0].contentDocument.getElementsByTagName(&apos;iframe&apos;)[1].contentWindow.inputKey(event,this)" size="60" value="' + txt + '"></input>';
     };
 };
 
