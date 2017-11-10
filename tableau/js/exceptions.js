@@ -64,12 +64,29 @@ modal.open = function(settings) {
 };
 
 closeModal = function() {
-    console.log('closed!')
     var m = parent.parent.document.getElementById('modal');
     var o = parent.parent.document.getElementById('overlay');
+    var c = parent.parent.document.getElementById('content');
 
     o.style.display = 'none';
     m.style.display = 'none';
+
+    var inpt = c.getElementsByTagName("input");
+    for(var i=0;i<inpt.length;i++){
+        txt = inpt[i].value;
+        r = inpt[i].parentNode;
+        r.removeChild(inpt[i]);
+        r.innerText = txt;
+    }
+
+    var newinput = ''
+    var crit = c.getElementsByClassName("crit");
+    for(var i=0;i<crit.length;i++){
+        newinput += crit[i].innerText;
+    }
+
+    console.log('Updating Criteria: ' + newinput);
+    getCurrentWorkbook().changeParameterValueAsync('Exception Criteria', newinput);
 };
 
 critClick = function(item) {
