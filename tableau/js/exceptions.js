@@ -14,18 +14,15 @@ modal.center = function(){
     var height = parent.parent.window.innerHeight
         || parent.parent.document.documentElement.clientHeight
         || parent.parent.document.body.clientHeight;
-    console.log(width,height);
-    console.log('pass1',m.offsetHeight,m.offsetWidth);
 
     m.setAttribute("style","position: absolute; background:url(tint20.png) 0 0 repeat; background:rgba(0,0,0,0.2); border-radius:14px; padding:8px;");
-    console.log('pass2',m.offsetHeight,m.offsetWidth);
 
     top = Math.max(height - m.offsetHeight, 0) / 2;
-    left = Math.max(width - m.offsetWidth, 0) / 2;
+    left = Math.max(width - m.offsetWidth, 0) / 2;  
 
     console.log(top,left,height,width,m.offsetHeight,m.offsetWidth);
-    m.style.top = top;
-    m.style.left = left;
+    m.style.top = top + 'px';
+    m.style.left = left + 'px';
     
 };
 
