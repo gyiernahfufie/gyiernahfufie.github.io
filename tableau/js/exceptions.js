@@ -2,10 +2,10 @@ const modal = new Object();
 
 modal.center = function(){
     var top, left;
-    var body = document.body,
-        html = document.documentElement;
+    var body = parent.parent.document.body,
+        html = parent.parent.document.documentElement;
 
-    var m = document.getElementById('modal');
+    var m = parent.parent.document.getElementById('modal');
 
     var width = window.innerWidth
         || document.documentElement.clientWidth
@@ -25,10 +25,10 @@ modal.center = function(){
 };
 
 modal.open = function(settings) {
-    var m = document.getElementById('modal');
-    var o = document.getElementById('overlay');
-    var c = document.getElementById('content');
-    var a = document.getElementById('close');
+    var m = parent.parent.document.getElementById('modal');
+    var o = parent.parent.document.getElementById('overlay');
+    var c = parent.parent.document.getElementById('content');
+    var a = parent.parent.document.getElementById('close');
 
     a.setAttribute("onclick","modal.close()");
 
@@ -63,8 +63,8 @@ modal.open = function(settings) {
 
 modal.close = function() {
     console.log('closed!')
-    var m = document.getElementById('modal');
-    var o = document.getElementById('overlay');
+    var m = parent.parent.document.getElementById('modal');
+    var o = parent.parent.document.getElementById('overlay');
 
     o.style.display = 'none';
     m.style.display = 'none';
@@ -126,7 +126,7 @@ setStyle = function(){
     } else {
         style.appendChild(document.createTextNode(css));
     }
-    document.getElementsByTagName('head')[0].appendChild(style);
+    parent.parent.document.getElementsByTagName('head')[0].appendChild(style);
 
 };
 
