@@ -30,7 +30,7 @@ modal.open = function(settings) {
     var c = parent.parent.document.getElementById('content');
     var a = parent.parent.document.getElementById('close');
 
-    a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].modal.close()");
+    a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.modal.close()");
 
     c.innerHTML = settings.content;
     c.setAttribute("style","border-radius:8px; background:#fff; padding:20px;");
@@ -49,12 +49,12 @@ modal.open = function(settings) {
 
     var crit = c.getElementsByClassName("crit");
     for(var i=0;i<crit.length;i++){
-        crit[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].critClick(this)");
+        crit[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.critClick(this)");
     }
 
     var del = c.getElementsByClassName("del");
     for(var i=0;i<del.length;i++){
-        del[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].delClick(this)");
+        del[i].setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.delClick(this)");
     }
 
     modal.center();
@@ -74,7 +74,7 @@ critClick = function(item) {
     if (item.innerText != '') {
         txt = item.innerText;
         item.innerText = '';
-        item.innerHTML = '<input onkeypress="inputKey(event,this)" size="60" value="' + txt + '"></input>';
+        item.innerHTML = '<input onkeypress="document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.inputKey(event,this)" size="60" value="' + txt + '"></input>';
     };
 };
 
