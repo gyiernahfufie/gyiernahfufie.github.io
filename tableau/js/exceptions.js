@@ -32,7 +32,7 @@ modal.open = function(settings) {
     var c = parent.parent.document.getElementById('content');
     var a = parent.parent.document.getElementById('close');
 
-    a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.modal.close()");
+    a.setAttribute("onclick","document.getElementsByTagName('iframe')[0].contentDocument.getElementsByTagName('iframe')[1].contentWindow.closeModal()");
 
     c.innerHTML = settings.content;
     c.setAttribute("style","border-radius:8px; background:#fff; padding:20px;");
@@ -63,7 +63,7 @@ modal.open = function(settings) {
     m.style.display = 'block';
 };
 
-modal.close = function() {
+closeModal = function() {
     console.log('closed!')
     var m = parent.parent.document.getElementById('modal');
     var o = parent.parent.document.getElementById('overlay');
