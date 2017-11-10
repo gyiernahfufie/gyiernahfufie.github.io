@@ -82,7 +82,7 @@ closeModal = function() {
     var newinput = ''
     var crit = c.getElementsByClassName("crit");
     for(var i=0;i<crit.length;i++){
-        newinput += crit[i].innerText;
+        newinput += crit[i].innerText + ';';
     }
 
     console.log('Updating Criteria: ' + newinput);
