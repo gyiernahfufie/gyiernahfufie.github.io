@@ -14,7 +14,7 @@ modal.center = function(){
     var height = parent.parent.window.innerHeight
         || parent.parent.document.documentElement.clientHeight
         || parent.parent.document.body.clientHeight;
-
+    console.log(width,height);
  
     m.setAttribute("style","position: absolute; background:url(tint20.png) 0 0 repeat; background:rgba(0,0,0,0.2); border-radius:14px; padding:8px;");
     top = Math.max(height - m.offsetHeight, 0) / 2;
