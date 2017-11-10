@@ -118,6 +118,7 @@ setStyle = function(){
           text-indent:-9999px;
           top:-7px;
           right:-7px;
+          cursor: pointer;
         }
         `;
 
@@ -284,7 +285,7 @@ initApp = function() {
     o = document.createElement('div');
     o.id = 'overlay';
     
-    a = document.createElement('a');
+    a = document.createElement('div');
     a.innerText = "x";
     a.id = 'close';
     a.href = '';
