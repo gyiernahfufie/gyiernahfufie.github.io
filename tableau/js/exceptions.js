@@ -157,7 +157,7 @@ addJSAPI = function() {
 };
 
 getTableau = function() {
-    if(parent.parent.tableau;.messages===undefined) {
+    if(parent.parent.tableau.messages===undefined) {
         addJSAPI();
     };
     return parent.parent.tableau;
