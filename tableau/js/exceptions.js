@@ -151,8 +151,6 @@ setStyle = function(){
 };
 
 getTableau = function() {
-    if (!parent) return null;
-    if (!parent.parent) return null;
     return parent.parent.tableau;
 };
 
