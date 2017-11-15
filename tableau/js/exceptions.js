@@ -220,7 +220,9 @@ function getMarks(e) {
     worksheet = e.getWorksheet();
     console.log(worksheet.getName());
     if (worksheet.getName() === 'Selection Sheet') {
+        console.log('here!');
         e.getMarksAsync().then(function(m) {
+            console.log('here2');
             $.each(m, function(i, mark) {
                 var alertOutput = "selectedMarks:\n";
 
