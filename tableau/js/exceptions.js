@@ -157,6 +157,9 @@ addJSAPI = function() {
 };
 
 getTableau = function() {
+    if(parent.parent.tableau;.messages===undefined) {
+        addJSAPI();
+    };
     return parent.parent.tableau;
 };
 
@@ -292,7 +295,6 @@ function getMarks(e) {
 }
 initApp = function() {
 
-    console.log(getTableau());
     var tableau;
     tableau = getTableau();
     console.log('version 2.13');
