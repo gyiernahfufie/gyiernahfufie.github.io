@@ -338,7 +338,7 @@ finishLoad = function() {
 initApp = function() {
     if(parent.parent.tableau.messages!=undefined) {    
         loadScripts([
-           "javascripts/api/tableau-2.1.1.min.js"
+           "http://192.168.15.178/javascripts/api/tableau-2.1.1.min.js"
         ],function(){
             console.log('All things are loaded');
             finishLoad();
