@@ -154,10 +154,12 @@ addJSAPI = function() {
     var tabAPI = document.createElement('script');
     tabAPI.setAttribute('src','javascripts/api/tableau-2.1.1.min.js');
     parent.parent.document.head.appendChild(tabAPI);
+    console.log('api added');
 };
 
 getTableau = function() {
     if(parent.parent.tableau.messages===undefined) {
+        console.log('adding JS API');
         addJSAPI();
     };
     return parent.parent.tableau;
