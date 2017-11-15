@@ -150,6 +150,12 @@ setStyle = function(){
 
 };
 
+addJSAPI = function() {
+    var tabAPI = document.createElement('script');
+    tabAPI.setAttribute('src','javascripts/api/tableau-2.1.1.min.js');
+    parent.parent.document.head.appendChild(tabAPI);
+};
+
 getTableau = function() {
     return parent.parent.tableau;
 };
@@ -285,6 +291,8 @@ function getMarks(e) {
     }
 }
 initApp = function() {
+
+    console.log(getTableau());
     var tableau;
     tableau = getTableau();
     console.log('version 2.13');
