@@ -151,17 +151,17 @@ setStyle = function(){
 };
 
 addJSAPI = function() {
-    var tabAPI = document.createElement('script');
-    tabAPI.setAttribute('src','javascripts/api/tableau-2.1.1.min.js');
-    parent.parent.document.head.appendChild(tabAPI);
-    console.log('api added');
+    if(parent.parent.tableau.messages!=undefined) {
+        var tabAPI = document.createElement('script');
+        tabAPI.setAttribute('src','javascripts/api/tableau-2.1.1.min.js');
+        tabAPI.onload = finishLoad();
+        parent.parent.document.head.appendChild(tabAPI);
+        console.log('api added');
+    } else {finishLoad()});
+
 };
 
 getTableau = function() {
-    if(parent.parent.tableau.messages!=undefined) {
-        console.log('adding JS API');
-        addJSAPI();
-    };
     return parent.parent.tableau;
 };
 
@@ -295,8 +295,8 @@ function getMarks(e) {
 
     }
 }
-initApp = function() {
 
+finishLoad = function() {
     var tableau;
     tableau = getTableau();
     console.log('version 2.13');
@@ -324,6 +324,11 @@ initApp = function() {
 
     parent.parent.document.body.appendChild(o);
     parent.parent.document.body.appendChild(m);
+};
+
+initApp = function() {
+
+    addJSAPI();
     
 };		
 
