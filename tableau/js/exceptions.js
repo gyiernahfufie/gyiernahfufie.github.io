@@ -150,16 +150,25 @@ setStyle = function(){
 
 };
 
-addJSAPI = function() {
-    if(parent.parent.tableau.messages!=undefined) {
-        var tabAPI = document.createElement('script');
-        tabAPI.setAttribute('src','javascripts/api/tableau-2.1.1.min.js');
-        tabAPI.onload = finishLoad();
-        parent.parent.document.head.appendChild(tabAPI);
-        console.log('api added');
-    } else {finishLoad()};
-
-};
+function loadScripts(array,callback){
+    var loader = function(src,handler){
+        var script = document.createElement("script");
+        script.src = src;
+        script.onload = script.onreadystatechange = function(){
+            script.onreadystatechange = script.onload = null;
+            handler();
+        }
+        var head = parent.parent.document.getElementsByTagName("head")[0];
+        (head || parent.parent.document.body).appendChild( script );
+    };
+    (function run(){
+        if(array.length!=0){
+            loader(array.shift(), run);
+        }else{
+            callback && callback();
+        }
+    })();
+}
 
 getTableau = function() {
     return parent.parent.tableau;
@@ -327,8 +336,14 @@ finishLoad = function() {
 };
 
 initApp = function() {
-
-    addJSAPI();
+    if(parent.parent.tableau.messages!=undefined) {    
+        loadScripts([
+           "javascripts/api/tableau-2.1.1.min.js"
+        ],function(){
+            console.log('All things are loaded');
+            finishLoad();
+        });
+    } else {finishLoad()};
     
 };		
 
