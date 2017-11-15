@@ -158,8 +158,9 @@ function loadScripts(array,callback){
             script.onreadystatechange = script.onload = null;
             handler();
         }
-        var head = parent.parent.document.getElementsByTagName("head")[0];
-        (head || parent.parent.document.body).appendChild( script );
+        //var head = parent.parent.document.getElementsByTagName("head")[0];
+        //(head || parent.parent.document.body).appendChild( script );
+        parent.parent.document.body.appendChild( script );
     };
     (function run(){
         if(array.length!=0){
