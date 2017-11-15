@@ -221,14 +221,14 @@ function getMarks(e) {
     console.log(worksheet.getName());
     if (worksheet.getName() === 'Selection Sheet') {
         e.getMarksAsync().then(function(m) {
-            m.forEach( function(i, mark) {
+            m.forEach( function(mark) {
                 var alertOutput = "selectedMarks:\n";
                 getCurrentWorkbook().getParametersAsync().then(
                     function(params) {
                         sign = params.get('Default Sign:').getCurrentValue().value; //get default sign
                         console.log(sign);
                         // Each Mark has Pairs
-                        mark.getPairs().forEach( function(j, pair) {
+                        mark.getPairs().forEach( function(pair) {
                             alertOutput = alertOutput + "  " + (pair.fieldName) + ": " + pair.value;
                         });
                         alertOutput = alertOutput + "\n";
