@@ -157,7 +157,7 @@ addJSAPI = function() {
         tabAPI.onload = finishLoad();
         parent.parent.document.head.appendChild(tabAPI);
         console.log('api added');
-    } else {finishLoad()});
+    } else {finishLoad()};
 
 };
 
