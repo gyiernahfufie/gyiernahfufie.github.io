@@ -15,6 +15,10 @@ getCurrentWorksheet = function() {
   return getCurrentViz().getWorkbook().getActiveSheet().getWorksheets()[0];
 };
 
+getCurrentWorkbook = function() {
+  return getCurrentViz().getWorkbook();
+};
+
 errorWrapped = function(context, fn) {
   return function() {
     var args, err, error;
@@ -95,7 +99,7 @@ initChart = function() {
     return console.err("Error during Tableau Async request:", err);
   };
   onDataLoadOk = errorWrapped("Getting data from Tableau", function(table) {
-    alert('clicked!');
+    //alert('clicked!');
     var Category, Profit, Sales, c, colIdxMaps, graphDataByCategory, j, len, ref, toChartEntry;
     colIdxMaps = {};
     ref = table.getColumns();

@@ -15,7 +15,6 @@
   background:rgba(0,0,0,0.2);
   border-radius:14px;
   padding:8px;
-  z-index: 99;
 }
 
 #content {
@@ -52,16 +51,7 @@ td {
 input {
     /* width: 100%; */
 }
-.del {
-  cursor: pointer;
-  background: #d1e0e0;
-  color: black;
-}
-.del:hover {
-  cursor: pointer;
-  background: red;
-  color: white;
-}
+  
 body {
   font-family: Helvetica, sans-serif;
 }
