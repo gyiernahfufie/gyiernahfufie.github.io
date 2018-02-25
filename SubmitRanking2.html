@@ -6,7 +6,7 @@
         <title>Blank HTML5</title>
 <style>
 </style>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     </head>
     <body>
 
@@ -18,7 +18,7 @@
 	    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
 	    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 	 
-	    xmlhttp.open("GET"," http://api.hostip.info/get_html.php ",false);
+	    xmlhttp.open("GET"," https://api.hostip.info/get_html.php ",false);
 	    xmlhttp.send();
 	 
 	    hostipInfo = xmlhttp.responseText.split("\n");
