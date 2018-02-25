@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Blank HTML5</title>
+<style>
+</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    </head>
+    <body>
+
+    <p>THIS WILL SUBMIT DATE TO GOOGLE SHEETS</p>
+
+<script>
+
+	function myIP() {
+	    if (window.XMLHttpRequest) xmlhttp = new XMLHttpRequest();
+	    else xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	 
+	    xmlhttp.open("GET"," http://api.hostip.info/get_html.php ",false);
+	    xmlhttp.send();
+	 
+	    hostipInfo = xmlhttp.responseText.split("\n");
+	    userFields = '';
+
+	    for (i=0; hostipInfo.length >= i; i++) {
+	    	inf = hostipInfo[i]
+	    	try{
+		    	inf = inf.toString();
+		    	n = inf.indexOf(':');
+		    	if (n!=-1) {
+			        ipAddress = hostipInfo[i].split(":");
+			        userFields += '&' + ipAddress[0] + '=' + ipAddress[1].trim();
+		    	}
+		    }
+		    catch(err){
+		    	//console.log(err);
+		    }
+		    
+	    }
+	 
+	    return userFields;
+	}
+
+	function getJsonFromUrl() {
+	  var query = location.search.substr(1);
+	  var result = {};
+	  query.split("&").forEach(function(part) {
+	    var item = part.split("=");
+	    result[item[0]] = decodeURIComponent(item[1]);
+	  });
+	  return result;
+	}
+
+	// Variable to hold request
+	var request;
+
+	// Bind to the submit event of our form
+	$( document ).ready(function() {
+
+	    // Abort any pending request
+	    if (request) {
+	        request.abort();
+	    }
+
+	    serializedData = location.search.substr(1) + myIP()
+	    console.log(serializedData);
+
+	    // Fire off the request to /form.php
+	    request = $.ajax({
+	        url: "https://script.google.com/macros/s/AKfycbyBq5u0qfTHqI4Mm2bx2QhDqBvMc9rx1BKCDjTR-4T1OHNagsBf/exec",
+	        type: "post",
+	        data: serializedData
+	    });
+
+	    // Callback handler that will be called on success
+	    request.done(function (response, textStatus, jqXHR){
+	        // Log a message to the console
+	        console.log("Hooray, it worked!");
+	        console.log(response);
+	    });
+
+	    // Callback handler that will be called on failure
+	    request.fail(function (jqXHR, textStatus, errorThrown){
+	        // Log the error to the console
+	        console.error(
+	            "The following error occurred: "+
+	            textStatus, errorThrown
+	        );
+	    });
+
+	});
+</script>
+    </body>
+</html>
+
