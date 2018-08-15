@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trellis Resize Settings</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
+
+    <!-- Extensions Library (this will be hosted on a CDN eventually) -->
+    <script src="../../lib/tableau-extensions-0.latest.js"></script>
+
+    <!-- Our extension's code -->
+    <script src="./TrellisResizeDialog.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h4>Configure Trellis Chart Resize Extension</h4>
+
+      <h5>Select the parameter that controls your trellis columns: </h5>
+
+      <div class="btn-group">
+        <div id="selParamDropdown" class="btn dropdown dropdown-btn btn-danger dropdown-toggle" data-toggle="dropdown">
+          <span id="selParam">Select Parameter</span>&nbsp;<span class="caret"/>
+        </div>
+        <ul id="listParam" class="dropdown-menu">
+            
+        </ul>
+      </div>
+
+      <div style="margin-left: 14px" id="parameters">
+      </div>
+      <h5>Enter the width of your header columns:</h5>
+      <input style="margin-left: 14px" type="number" id="headerWidth" name="headerWidth" >
+      <h5>Enter the width of one column in your trellis chart:</h5>
+      <input style="margin-left: 14px" type="number" id="columnWidth" name="columnwidth" >
+      <hr />
+      <button id="closeButton">Save Configuration</button>
+    </div>
+  </body>
+</html>

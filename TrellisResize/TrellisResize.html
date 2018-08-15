@@ -22,11 +22,21 @@
   </head>
   <body>
     <p>
-      <strong>jQuery resize:</strong>
-      <span id="jqWidth">0</span>,
-      <span id="jqHeight">0</span>|
-      <span id="paramVal">0</span>| Current Value:
-      <span id="curParam">0</span>
+      <strong>Trellis Chart Resize Extension</strong><br/>
+      <span style="color:grey">pane size:
+        x=<span id="jqWidth">0</span>,
+        y=<span id="jqHeight">0</span> | 
+        calculated columns=<span id="paramVal">0</span> | 
+        status=<span id="curParam">0</span>
+      </span>
     </p>
+    <div id='inactive'><h4 style='color:red'>No settings configured. Configure the extension to begin using.</h4></div>
+    <div id='active'style="display: none;">
+      <h4>Current Settings:</h4>
+      <p><small>To change, configure the extension</small></p>
+      <p><strong>Parameter controlling trellis chart: </strong><span id='paramName'></span></p>
+      <p><strong>Header width: </strong><span id='headWidth'></span></p>
+      <p><strong>Column width: </strong><span id='colWidth'></span></p>
+    </div>
   </body>
 </html>
