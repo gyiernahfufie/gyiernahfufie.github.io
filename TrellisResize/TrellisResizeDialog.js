@@ -72,25 +72,7 @@
    */
   function addParamToUI(parameter,active) {
     console.log('Adding parameter: ' + parameter.name);
-    //let containerDiv = $('<div />');
-    
-    /*
-    $('<input />', {
-      type: 'radio',
-      name: 'parameters',
-      id: parameter.id,
-      value: parameter.name,
-      checked: active,
-      click: function() { selectedParameter = parameter.name; console.log('parameter set to: '+ parameter.name); }
-    }).appendTo(containerDiv);
 
-    $('<label />', {
-      'for': parameter.id,
-      text: parameter.name,
-    }).appendTo(containerDiv);
-
-    $('#parameters').append(containerDiv);
-    */
     let li = $('<li />');
 
     $('<a />', {
@@ -107,7 +89,7 @@
 
     $('#listParam').append(li);
   }
-
+""
   /**
    * Stores the selected datasource IDs in the extension settings,
    * closes the dialog, and sends a payload back to the parent. 

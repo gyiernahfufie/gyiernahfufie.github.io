@@ -112,23 +112,6 @@ var curParam = '';
     }
 
   };
-  
-  function updateParameter(parameterName,value) {
-    tableau.extensions.dashboardContent.dashboard.findParameterAsync(parameterName).then(function(parameter){
-      parameter.changeValueAsync(value).then(function() {
-        getParameter('Columns to Display');
-      });
-    });
-  };
-
-  function getParameter(parameterName) {
-    tableau.extensions.dashboardContent.dashboard.findParameterAsync(parameterName).then(function(parameter){
-      
-      curParam = parameter.currentValue.value;
-      $('#curParam').html(curParam );
-      return parameter.currentValue.value;
-    });
-  };
 
   //async function that returns the promise of a parameter
   var getParameter2 = function(parameterName){
