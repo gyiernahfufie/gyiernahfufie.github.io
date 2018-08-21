@@ -14,6 +14,7 @@
 		var sound = new Howl({
 		  src: ['Ansley.mp3']
 		});
+		sound.play();
 	}
 
 	function stopAudio() {
