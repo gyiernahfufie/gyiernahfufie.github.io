@@ -7,7 +7,7 @@
 		sound = new Howl({
 		  src: ['Ansley.mp3']
 		});
-		playAudio();
+		//playAudio();
 		$('#playButton').click(playAudio());
 		$('#stopButton').click(stopAudio());
 
@@ -15,7 +15,7 @@
   
 	function playAudio() {
 		console.log('play audio');
-		soundID = sound.play();
+		var soundID = sound.play();
 	}
 
 	function stopAudio() {
