@@ -6,18 +6,21 @@
 	var sound = new Howl({
 	  src: ['Ansley.mp3']
 	});
+	var soundID;
+
 	$(document).ready(function () { //once page is ready
 		
-		playAudio()
+		playAudio();
 		$('#play').click(stopAudio());
 
 	});
   
 	function playAudio() {
-		sound.play();
+		soundID = sound.play();
 	}
-	
+
 	function stopAudio() {
-		sound.stop();
+		sound.stop(soundID);
+		console.log('stopping: ' + soundID);
 	}
 })();
