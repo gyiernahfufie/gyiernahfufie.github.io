@@ -2,19 +2,18 @@
 
 
 (function () {
-
+	var sound = '';
 	$(document).ready(function () { //once page is ready
-		
+		sound = new Howl({
+		  src: ['Ansley.mp3']
+		});
 		playAudio();
 		$('#play').click(stopAudio());
 
 	});
   
 	function playAudio() {
-		var sound = new Howl({
-		  src: ['Ansley.mp3']
-		});
-		sound.play();
+		soundID = sound.play();
 	}
 
 	function stopAudio() {
