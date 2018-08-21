@@ -3,11 +3,6 @@
 
 (function () {
 
-	var sound = new Howl({
-	  src: ['Ansley.mp3']
-	});
-	var soundID;
-
 	$(document).ready(function () { //once page is ready
 		
 		playAudio();
@@ -16,11 +11,13 @@
 	});
   
 	function playAudio() {
-		soundID = sound.play();
+		var sound = new Howl({
+		  src: ['Ansley.mp3']
+		});
 	}
 
 	function stopAudio() {
-		sound.stop(soundID);
-		console.log('stopping: ' + soundID);
+		sound.stop();
+		console.log('stopping sound');
 	}
 })();
