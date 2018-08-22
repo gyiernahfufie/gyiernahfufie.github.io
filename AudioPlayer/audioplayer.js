@@ -5,14 +5,15 @@
 	var sound = '';
 	$(document).ready(function () { //once page is ready
 		var param = getJsonFromUrl();
-		console.log(param);
-		
+		console.log('loading: '+ param.file);
+
 		sound = new Howl({
-		  src: ['Ansley.mp3']
+		  src: [param.file]
 		});
 		//playAudio();
 		$('#playButton').click(playAudio);
 		$('#stopButton').click(stopAudio);
+		$('#pauseButton').click(pauseAudio);
 	});
 
 	function playAudio() {
@@ -23,6 +24,11 @@
 	function stopAudio() {
 		sound.stop();
 		console.log('stopping sound');
+	}
+
+	function pauseAudio() {
+		sound.pause();
+		console.log('pausing sound');
 	}
 
 	function getJsonFromUrl() {
