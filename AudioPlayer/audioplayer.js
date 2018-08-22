@@ -10,7 +10,11 @@
 		sound = new Howl({
 		  src: [param.file]
 		});
-		//playAudio();
+
+		if (param.file != undefined) {
+			playAudio();
+		}
+
 		$('#playButton').click(playAudio);
 		$('#stopButton').click(stopAudio);
 		$('#pauseButton').click(pauseAudio);
@@ -19,6 +23,8 @@
 	function playAudio() {
 		console.log('play audio');
 		var soundID = sound.play();
+		$('#playButton').hide();
+		$('#pauseButton').show();
 	}
 
 	function stopAudio() {
@@ -29,6 +35,8 @@
 	function pauseAudio() {
 		sound.pause();
 		console.log('pausing sound');
+		$('#pauseButton').hide();
+		$('#playButton').show();
 	}
 
 	function getJsonFromUrl() {
