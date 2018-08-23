@@ -43,7 +43,7 @@ var curParam = '';
     // This uses the window.location.origin property to retrieve the scheme, hostname, and 
     // port where the parent extension is currently running, so this string doesn't have
     // to be updated if the extension is deployed to a new location.
-    const popupUrl = `${window.location.origin}/TrellisResize/TrellisResizeDialog.html`;
+    const popupUrl = '${window.location.origin}/TrellisResize/TrellisResizeDialog.html';
     const payload = ''
 
     /**
