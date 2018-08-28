@@ -43,6 +43,7 @@ var curParam = '';
     // This uses the window.location.origin property to retrieve the scheme, hostname, and 
     // port where the parent extension is currently running, so this string doesn't have
     // to be updated if the extension is deployed to a new location.
+
     var path = location.origin + location.pathname;
     path = path.substring(0, path.lastIndexOf('/')) + "/";
 
