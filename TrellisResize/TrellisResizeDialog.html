@@ -23,7 +23,12 @@
   <body>
     <div class="container">
       <h4>Configure Trellis Chart Resize Extension</h4>
-
+      <span>Prerequisites:</span>
+      <ul>
+        <li>Trellis row and column calculations that leverage an integer parameter to control the number of columns to display. The columns calculation should be: <span style="font-style: italic">(INDEX()-1)%([Columns Parameter])</span>. The rows calculation should be: <span style="font-style: italic">int((INDEX()-1)/[Columns Parameter])</span>.</li>
+        <li>A dashboard that has an automatic or ranged size.</li>
+      </ul>
+      <br/>
       <h5>Select the parameter that controls your trellis columns: </h5>
 
       <div class="btn-group">
