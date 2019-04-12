@@ -12,7 +12,8 @@
 		});
 
 		if (param.file != undefined) {
-			playAudio();
+			//playAudio();
+			pauseAudio();
 		}
 
 		$('#playButton').click(playAudio);
